@@ -1,0 +1,57 @@
+.conatiner {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 25rem;
+    height: 35rem;
+    margin: 10px;
+    border: 1px solid rgb(126, 118, 118);
+    border-radius: 10px;
+    // overflow: hidden;
+    box-shadow: 2px 5px 9px rgba(10, 7, 7, 0.4);
+    // display: flex;
+    // justify-content: end;
+    // align-items: end;
+    // background-color: aqua;
+}
+
+.card-content {
+    margin: 10px;
+}
+
+.card-text {
+    text-align: center;
+    // font-size: 2px;
+    // overflow: overlay;
+}
+
+.card-body {
+    width: "90%";
+    // height: 8rem;
+    overflow: hidden;
+    // background-color: blue;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    transform: scale(1.05);
+}
+
+.btn-cont{
+   justify-self: flex-end;
+   align-self: end;
+}
+.desc{
+    height: "40rem";
+    overflow: hidden;
+}

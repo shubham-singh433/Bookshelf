@@ -1,0 +1,27 @@
+<div class="conatiner">
+  <div *ngFor="let slide of data" class="card">
+    <a [routerLink]="['/home/books-deatils', slide.id]">
+      <div class="card-content">
+        <div class="card-body w-40 h-50">
+          <p class="text-start font-weight-bold card-text">
+           {{ slide.title | titlecase }}
+          </p>
+          <p class="text-start font-weight-bold card-text">ID : {{ slide.id | titlecase }}</p>
+          <p class="text-start font-weight-bold card-text">Category : {{ slide?.genre[0] }}</p>
+          <p class="text-start font-weight-normal card-text">
+            Description : {{ slide.description }}
+          </p>
+        </div>
+      </div>
+    </a>
+ 
+      <button
+        type="button"
+        class="btn btn-secondary btn-cont"
+        (click)="DeleteItem(slide.id)"
+      >
+        Delete Book
+      </button>
+   
+  </div>
+</div>

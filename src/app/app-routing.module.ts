@@ -1,17 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './component/login/login.component';
-import { RegisterComponent } from './component/register/register.component';
-
+import { BookListComponent } from './module/books-module/component/book-list/book-list.component';
+import { authgaurdGuard } from './authgaurd.guard';
 const routes: Routes = [
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegisterComponent},
   {
-    path:'',redirectTo:'/login',pathMatch:'full'
-  }
-  ,{
-    path:'**',component:LoginComponent
-  }
+    path: 'home',
+    loadChildren: () =>
+      import('./module/books-module/books-module.module').then(
+        (m) => m.BooksModuleModule
+      ),
+    canActivate: [authgaurdGuard],
+  },
+  // {
+  //   path: 'books-list',
+  //   component: BookListComponent,
+  //   canActivate: [authgaurdGuard],
+  // },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./module/auth/auth.module').then((m) => m.AuthModule),
+  },
+  // {
+  //   path: '**',
+  //   loadChildren: () =>
+  //     import('./module/books-module/books-module.module').then(
+  //       (m) => m.BooksModuleModule
+  //     ),
+  //   canActivate: [authgaurdGuard],
+  // },
 ];
 
 @NgModule({

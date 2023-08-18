@@ -11,6 +11,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BooksItemComponent } from './component/books-item/books-item.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchItemComponent } from './component/search-item/search-item.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,7 @@ const routes: Routes = [
       { path: 'books-list', component: BookListComponent },
       { path: 'books-deatils/:id', component: BookDetailComponent },
       { path: 'books-item', component: BooksItemComponent },
+      {path:'search-item',component: SearchItemComponent}
     ],
   },
   {
@@ -40,6 +43,7 @@ const routes: Routes = [
     HomeComponent,
     BookDetailComponent,
     BooksItemComponent,
+    SearchItemComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -48,6 +52,8 @@ const routes: Routes = [
     MatPaginatorModule,
     NgxPaginationModule,
     FontAwesomeModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   // providers: [BookServiceService],
 })

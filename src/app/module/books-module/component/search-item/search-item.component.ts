@@ -1,54 +1,41 @@
-import { Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BookServiceService } from '../../service/book-service.service';
+import { Router } from '@angular/router';
 import { UserService } from '../../../../service/user.service';
 import { Books } from '../../../../books';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-
 @Component({
-  selector: 'app-book-list',
-  templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss'],
+  selector: 'app-search-item',
+  templateUrl: './search-item.component.html',
+  styleUrls: ['./search-item.component.scss'],
 })
-export class BookListComponent implements OnInit {
+export class SearchItemComponent {
   Details: Books[] = [];
-  searchText:string="";
+  searchText: string = '';
   items: number = 3;
   length!: number;
   page: number = 1;
   data!: any;
   constructor(
     private http: BookServiceService,
-    private user: UserService,
     private route: Router,
-    private activated: ActivatedRoute
+    private activated: ActivatedRoute,
+    private user: UserService
   ) {}
-  
-
   ngOnInit(): void {
     this.activated.queryParams.subscribe((params) => {
       this.searchText = params['keyword'];
     });
-    if (!this.searchText)
-    {
-       let username = this.user.getUsername();
+    let username = this.user.getUsername();
     if (!username) {
       // this.route.navigate(['/login']);
     }
-
-    this.http.getData().subscribe((value) => {
+    this.http.searchBook(this.searchText).subscribe((value) => {
       this.data = value;
       this.data = this.data.items;
       this.length = this.data.length;
+      console.log(this.data.length);
     });
-  }
-  else{
-        this.http.searchBook(this.searchText).subscribe((value) => {
-          this.data = value;
-          this.data = this.data.items;
-          this.length = this.data.length;
-        });
-  }
   }
   handlePageEvent(event: any) {
     this.items = event.pageSize;

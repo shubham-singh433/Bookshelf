@@ -28,7 +28,7 @@ export class SearchItemComponent {
     });
     let username = this.user.getUsername();
     if (!username) {
-      // this.route.navigate(['/login']);
+      this.route.navigate(['/login']);
     }
     this.http.searchBook(this.searchText).subscribe((value) => {
       this.data = value;
@@ -38,10 +38,11 @@ export class SearchItemComponent {
     });
   }
   handlePageEvent(event: any) {
+      if (this.length < event.pageSize) {
+        this.page = 1;
+      }
     this.items = event.pageSize;
-    if (this.length < this.items) {
-      this.page = 1;
-    }
+  
     // console.log(event);
   }
   Additem(id: string): void {

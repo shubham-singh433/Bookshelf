@@ -51,17 +51,19 @@ export class UserService {
           genre: this.data?.volumeInfo?.categories,
           description: this.data?.volumeInfo?.description,
         };
-        this.books.push(this.dataobj);
-        let storedData = localStorage.getItem(this.username);
-        if (storedData) {
-          this.books = JSON.parse(storedData);
-          let search = this.books.find((value) => value.id == id);
-          if (!search) {
-            this.books.push(this.dataobj);
-            localStorage.setItem(this.username, JSON.stringify(this.books));
+        
+          this.books.push(this.dataobj);
+          let storedData = localStorage.getItem(this.username);
+          if (storedData) {
+            this.books = JSON.parse(storedData);
+            let search = this.books.find((value) => value.id == id);
+            if (!search) {
+              this.books.push(this.dataobj);
+              localStorage.setItem(this.username, JSON.stringify(this.books));
+            }
           }
-        }
-        this.books = [];
+          this.books = [];
+        
       });
   }
 

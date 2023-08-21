@@ -13,21 +13,25 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BooksItemComponent } from './component/books-item/books-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchItemComponent } from './component/search-item/search-item.component';
+import { FilterPipe } from './pipe/filter.pipe';
+import {authgaurdGuard} from '../../authgaurd.guard'
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+    // canActivate = [authgaurdGuard],
   },
   // { path: 'bookslist', component: BookListComponent },
   {
     path: '',
     component: HomeComponent,
+
     children: [
       { path: 'books-list', component: BookListComponent },
       { path: 'books-deatils/:id', component: BookDetailComponent },
       { path: 'books-item', component: BooksItemComponent },
-      {path:'search-item',component: SearchItemComponent}
+      { path: 'search-item', component: SearchItemComponent },
     ],
   },
   {
@@ -44,6 +48,7 @@ const routes: Routes = [
     BookDetailComponent,
     BooksItemComponent,
     SearchItemComponent,
+    FilterPipe,
   ],
   imports: [
     RouterModule.forChild(routes),

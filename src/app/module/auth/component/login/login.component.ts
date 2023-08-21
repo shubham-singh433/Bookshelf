@@ -27,7 +27,7 @@ export class LoginComponent {
         this.loginForm.value.username + this.loginForm.value.password;
             if( this.user.isRegistered(this.username)){
             this.toastr.success('Login successful', 'Login', {
-              timeOut: 2000,
+              timeOut: 1000,
             });
             console.log(this.loginForm.value);
             this.route.navigate(['/home/books-list']);

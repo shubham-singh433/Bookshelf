@@ -1,4 +1,15 @@
+ <div class="select" >
+  <br />
+  <select id="multiselect" [(ngModel)]="selectedValue">
+    <option value="all">All</option>
+    <option value="Fiction">Fiction</option>
+    <option value="Hitorical">Hitorical</option>
+    <option value="Fantasy">Fantasy</option>
+    <option value="Biography & Autobiography">Biography & Autobiography</option>
+  </select>
+</div>
 <div class="conatiner">
+
   <div *ngIf="data.length>0;else empty"></div>
   <ng-template #empty>
     <div class="nodata">
@@ -7,7 +18,7 @@
     </p>
   </div>
   </ng-template>
-  <div *ngFor="let slide of data" class="card">
+  <div *ngFor="let slide of data |filter :selectedValue" class="card">
     <a [routerLink]="['/home/books-deatils', slide.id]">
       <div class="card-content">
         <div class="card-body w-40 h-50">

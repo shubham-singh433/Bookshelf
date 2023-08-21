@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class BookServiceService {
   key: string = 'AIzaSyCqsdjvwH9FGuni2XsTu-KkVmjHgA0Fltw';
   constructor(private http: HttpClient) {}
+  
   getData() {
     return this.http.get(
       `https://www.googleapis.com/books/v1/volumes?q=fiction&key=${this.key}`

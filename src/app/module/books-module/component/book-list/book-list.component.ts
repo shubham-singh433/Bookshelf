@@ -33,7 +33,7 @@ export class BookListComponent implements OnInit {
     {
        let username = this.user.getUsername();
     if (!username) {
-      // this.route.navigate(['/login']);
+      this.route.navigate(['/login']);
     }
 
     this.http.getData().subscribe((value) => {

@@ -10,24 +10,23 @@ import { Books } from '../../../../books';
   styleUrls: ['./books-item.component.scss'],
 })
 export class BooksItemComponent implements OnInit {
-  data!:any;
+  selectedValue:string="all"
+  data!: any;
   constructor(private route: Router, private user: UserService) {}
   ngOnInit(): void {
     let username = this.user.getUsername();
     if (!username) {
-      // this.route.navigate(['/login']);
+      this.route.navigate(['/login']);
     }
-   const favoriteData = this.user.getFavorite(username);
+    const favoriteData = this.user.getFavorite(username);
 
-   if (favoriteData !== null) {
-     this.data = JSON.parse(favoriteData);
-   }
+    if (favoriteData !== null) {
+      this.data = JSON.parse(favoriteData);
+    }
     // console.log(this.data[0].id);
   }
-  DeleteItem(id:string)
-  {
+  DeleteItem(id: string) {
     this.data = this.user.deleteFavorite(id);
-    console.log(this.data);
-    
+    // console.log(this.data);
   }
 }

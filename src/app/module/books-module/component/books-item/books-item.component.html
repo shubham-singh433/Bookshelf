@@ -1,4 +1,4 @@
- <div class="select" >
+<div class="select">
   <br />
   <select id="multiselect" [(ngModel)]="selectedValue">
     <option value="all">All</option>
@@ -8,41 +8,43 @@
     <option value="Biography & Autobiography">Biography & Autobiography</option>
   </select>
 </div>
-<div class="conatiner">
 
-  <div *ngIf="data.length>0;else empty"></div>
-  <ng-template #empty>
-    <div class="nodata">
-      <p class=" font-weight-bold">
-          No favourite found
-    </p>
-  </div>
-  </ng-template>
-  <div *ngFor="let slide of data |filter :selectedValue" class="card">
+<div class="conatiner">
+  <ng-container *ngIf="( data | filter : selectedValue).length>0;else emptytwo">
+  <div *ngFor="let slide of data | filter : selectedValue" class="card">
+
     <a [routerLink]="['/home/books-deatils', slide.id]">
       <div class="card-content">
         <div class="card-body w-40 h-50">
           <p class="text-start font-weight-bold card-text">
-           {{ slide.title | titlecase }}
+            {{ slide.title | titlecase }}
           </p>
-          <p class="text-start font-weight-bold card-text">ID : {{ slide.id | titlecase }}</p>
-          <p class="text-start font-weight-bold card-text">Category : {{ slide?.genre[0] }}</p>
+          <p class="text-start font-weight-bold card-text">
+            ID : {{ slide.id | titlecase }}
+          </p>
+          <p class="text-start font-weight-bold card-text">
+            Category : {{ slide?.genre[0] }}
+          </p>
           <div class="desc">
-          <p class="text-start font-weight-normal card-text ">
-            Description : {{ slide.description }}
-          </p>
+            <p class="text-start font-weight-normal card-text">
+              Description : {{ slide.description }}
+            </p>
           </div>
         </div>
       </div>
     </a>
-    
-      <button
-        type="button"
-        class="btn btn-info btn-cont"
-        (click)="DeleteItem(slide.id)"
-      >
-        Delete Book
-      </button>
-   
+    <button
+      type="button"
+      class="btn btn-info btn-cont"
+      (click)="DeleteItem(slide.id)"
+    >
+      Delete Book
+    </button>
   </div>
+ </ng-container>
+  <ng-template #emptytwo>
+    <div class="nodata">
+      <p class="font-weight-bold">No details found</p>
+    </div>
+  </ng-template>
 </div>

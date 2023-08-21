@@ -1,16 +1,11 @@
 <div
   class="container"
 >
-  <mat-card  class="card-conatiner w-60 h-60"
+  <mat-card  class="card-conatiner w-80 h-90"
   >
-    <div  class="justify-content-center  w-100  text-container">
-        <a routerLink="/login"><h4>Login</h4></a>
-      
-     <a><h4>/ </h4></a> 
-      <a routerLink="/register"><h4>Register</h4></a>
-    
+    <div class=" m-30  w-100  text-container ">
+      <h4 class="fs-10">Register</h4>
     </div>
-    <br/>
 
     <mat-card-content>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -21,6 +16,24 @@
             class="form-control"
             placeholder="username"
             formControlName="username"
+          />
+        </div>
+         <div class="form-group" >
+          <label for="formGroupExampleInput">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="firstname"
+            formControlName="firstname"
+          />
+          </div>
+            <div class="form-group" >
+          <label for="formGroupExampleInput">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="lastname"
+            formControlName="lastname"
           />
         </div>
         <div class="form-group input">
@@ -46,9 +59,12 @@
         <mat-card-actions class="actions">
           <button type="submit" class="btn btn-secondary w-75 p-2 m-2 shade" style="background-color: #27cbb8;" >
           Register
-          </button></mat-card-actions
+          </button>
+          </mat-card-actions
         >
       </form>
+      <div class="register" > <a routerLink="/login"><p class="register-link">Go to Login</p></a></div>
+   
     </mat-card-content>
   </mat-card>
 </div>

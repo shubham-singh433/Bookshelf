@@ -21,10 +21,10 @@
           class="card-img-top mt-20"
           [src]="slide.volumeInfo?.imageLinks?.thumbnail"
           alt="Card image cap"
-          height="250"
+          height="230"
           width="20"
         />
-        <div class="card-body w-40 h-40">
+        <div class="card-body w-40 h-35">
           <p class="text-start card-text">
             {{ slide.volumeInfo?.title | titlecase }}
           </p>
@@ -41,7 +41,7 @@
       </div>
     </a>
      <div class="btn-cont" >
-          <button type="button" class="btn btn-info" (click)="Additem(slide.id)">
+          <button type="button" class="btn" (click)="Additem(slide.id)">
             Add To Collection
           </button>
         </div>

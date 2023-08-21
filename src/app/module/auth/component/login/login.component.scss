@@ -25,10 +25,14 @@ h4 {
 .text-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    align-content: center;
+    // overflow: hidden;
+    // background-color: aqua;
+    height: 30px;
 }
-
+.link{
+    width: max-content;
+}
 .card-conatiner {
     align-self: center;
     background-color: #FFFFFF;
@@ -46,7 +50,7 @@ h4 {
 
 a {
     text-decoration: none;
-    color: black;
+    color: rgb(51, 102, 169);
 
 }
 
@@ -57,4 +61,8 @@ p {
 .green-snackbar {
     background: rgb(55, 201, 109);
     color: white;
+}
+.register-link{
+    margin: 20px;
+    font-size: 18px;
 }

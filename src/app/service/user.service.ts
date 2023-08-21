@@ -20,9 +20,8 @@ export class UserService {
 
   //set user in local storage
   setUser(key: string): void {
-    this.username = key;
-    console.log(this.username);
-    localStorage.setItem(this.username, JSON.stringify(this.books));
+    // console.log(this.username);
+    localStorage.setItem(key, JSON.stringify(this.books));
   }
   logout() {
     this.username = '';
@@ -30,7 +29,7 @@ export class UserService {
   //get user data local storage
   isRegistered(key: string) {
     this.username = key;
-    console.log(this.username);
+    // console.log(this.username);
     if (localStorage.getItem(key)) {
       return true;
     } else {

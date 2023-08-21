@@ -1,12 +1,9 @@
 <div class="container">
   <mat-card class="card-conatiner w-50 h-40 ">
-    <div class="justify-content-center  w-100 text-container">
-      <a routerLink="/login"><h4 class="fs-5 fs-md-4 fs-lg-3">Login</h4></a>
-
-      <a><h4>/</h4></a>
-      <a routerLink="/register"><h4 class="fs-5 fs-md-4 fs-lg-3">Register</h4></a>
+    <div class=" m-30  w-100  text-container ">
+      <h4 class="fs-10">Login</h4>
     </div>
-    <br />
+
 
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -42,5 +39,9 @@
         >
       </form>
     </mat-card-content>
+    <div class="link">
+ <a routerLink="/register"><p class="register-link">Not registered ? click here</p></a>
+    </div>
+     
   </mat-card>
 </div>

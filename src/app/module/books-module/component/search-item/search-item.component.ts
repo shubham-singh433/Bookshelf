@@ -16,36 +16,51 @@ export class SearchItemComponent {
   length!: number;
   page: number = 1;
   data!: any;
+
+
+  
   constructor(
     private http: BookServiceService,
     private route: Router,
     private activated: ActivatedRoute,
     private user: UserService
   ) {}
+
   ngOnInit(): void {
     this.activated.queryParams.subscribe((params) => {
+      
       this.searchText = params['keyword'];
-    });
-    let username = this.user.getUsername();
-    if (!username) {
-      this.route.navigate(['/login']);
-    }
-    this.http.searchBook(this.searchText).subscribe((value) => {
-      this.data = value;
-      this.data = this.data.items;
-      this.length = this.data.length;
-      console.log(this.data.length);
+      let username = this.user.getUsername();
+      if (!username) {
+        this.route.navigate(['/login']);
+      }
+      this.getBooks(this.searchText)
     });
   }
+
+
+   getBooks(searchText:string):void
+    {
+       this.http.searchBook(searchText).subscribe((value) => {
+          // console.log(this.searchText);
+          this.data = value;
+          this.data = this.data.items;
+          this.length = this.data.length;
+          // console.log(this.data.length);
+        });
+    }
+
+
   handlePageEvent(event: any) {
       if (this.length < event.pageSize) {
         this.page = 1;
       }
     this.items = event.pageSize;
-  
-    // console.log(event);
   }
+
+
   Additem(id: string): void {
     this.user.getParticular(id);
   }
+  
 }

@@ -10,9 +10,12 @@ import { UserService } from '../../../../service/user.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  name!: string;
-  registerForm = new FormGroup({
+  username!: string;
+
+    registerForm = new FormGroup({
     username: new FormControl<string>(''),
+    firstname: new FormControl<string>(''),
+    lastname: new FormControl<string>(''),
     password: new FormControl<string>(''),
     confirmpassword: new FormControl<string>(''),
   });
@@ -23,25 +26,53 @@ export class RegisterComponent {
   ) {}
 
   onSubmit(): void {
-    if (this.registerForm.value.username && this.registerForm.value.password)
-      this.name =
-        this.registerForm.value.username + this.registerForm.value.password;
+    //reading the values from the form
+    if (this.registerForm.value.username && this.registerForm.value.password) {
+      //check for a valid username
+      if (
+        this.check(
+          this.registerForm.value.username,
+          this.registerForm.value.password
+        )
+      )//if valid username
+       {
+        this.username =
+          this.registerForm.value.username + this.registerForm.value.password;
+         
+          //if  user is already registered
+           if (
+             !localStorage.getItem(this.username) &&
+             this.registerForm.value.password ==
+               this.registerForm.value.confirmpassword
+           ) {
+             //check if password matches or not and user does not exist privously
+             this.toastr.info('Registeration successful', 'Registered', {
+               timeOut: 2000,
+             });
+             this.user.setUser(this.username);
+             this.route.navigate(['/login']);
+           }
+           else if(localStorage.getItem(this.username) )
+           {
+             this.toastr.error('user already exist', '', {
+               timeOut: 800,
+             });
+           }
+      }
+    }
+  }
 
-    // this.name = JSON.stringify(this.registerForm.value.username+this.registerForm.value.password);
-    if (
-      !localStorage.getItem(this.name) &&
-      this.registerForm.value.password ===
-        this.registerForm.value.confirmpassword
-    ) {
-      this.toastr.info('Registeration successful', 'Registered', {
-        timeOut: 2000,
-      });
-      this.user.setUser(this.name);
-      this.route.navigate(['/login']);
-    } else {
-      this.toastr.info('Password Not Matched', '', {
-        timeOut: 2000,
+
+  //regx for username that is email
+  check(username: string, password: string): boolean {
+    var user_pattern = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
+    var result = user_pattern.test(username);
+    console.log(result);
+    if (!result) {
+      this.toastr.error('Enter valid Email', '', {
+        timeOut: 800,
       });
     }
+    return result;
   }
 }

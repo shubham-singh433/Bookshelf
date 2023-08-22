@@ -21,7 +21,8 @@ export class BooksItemComponent implements OnInit {
     const favoriteData = this.user.getFavorite(username);
 
     if (favoriteData !== null) {
-      this.data = JSON.parse(favoriteData);
+      this.data = favoriteData;
+      // console.log(this.data);
     }
     // console.log(this.data[0].id);
   }

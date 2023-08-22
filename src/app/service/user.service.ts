@@ -6,12 +6,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UserService {
-  newdata!: any;
-  data!: any;
-  dataobj!: any;
-  books: Books[] = [];
+  newdata!: any; //used in delete function
+  data!: any; //get particular
+  dataobj!: any; //get particular
+  books: Books[] = []; //get particular
+  details!: any; //get particular
+  temp!: any; //get to store
   key: string = 'AIzaSyCqsdjvwH9FGuni2XsTu-KkVmjHgA0Fltw';
   username!: string;
+  name!: string;
   constructor(private http: HttpClient) {}
 
   getUsername() {
@@ -19,9 +22,14 @@ export class UserService {
   }
 
   //set user in local storage
-  setUser(key: string): void {
-    // console.log(this.username);
-    localStorage.setItem(key, JSON.stringify(this.books));
+  setUser(key: string, name: string): void {
+    // console.log(name);
+
+    this.details = {
+      name: name,
+      favourite: this.books,
+    };
+    localStorage.setItem(key, JSON.stringify(this.details));
   }
   logout() {
     this.username = '';
@@ -30,6 +38,14 @@ export class UserService {
   isRegistered(key: string) {
     this.username = key;
     // console.log(this.username);
+    let user = localStorage.getItem(key);
+    if (user) {
+      let user2 = JSON.parse(user);
+      // console.log(user2);
+      this.name = user2?.name;
+      // console.log(this.name);
+    }
+
     if (localStorage.getItem(key)) {
       return true;
     } else {
@@ -38,6 +54,7 @@ export class UserService {
   }
 
   getParticular(id: string) {
+    // console.log(this.name)
     // console.log(this.username);
     this.http
       .get(`https://www.googleapis.com/books/v1/volumes/${id}?key=${this.key}`)
@@ -50,24 +67,37 @@ export class UserService {
           genre: this.data?.volumeInfo?.categories,
           description: this.data?.volumeInfo?.description,
         };
-        
-          this.books.push(this.dataobj);
-          let storedData = localStorage.getItem(this.username);
-          if (storedData) {
-            this.books = JSON.parse(storedData);
-            let search = this.books.find((value) => value.id == id);
-            if (!search) {
-              this.books.push(this.dataobj);
-              localStorage.setItem(this.username, JSON.stringify(this.books));
-            }
-          }
-          this.books = [];
-        
+
+        // this.books.push(this.dataobj);
+        this.push_book(this.username, id, this.name);
       });
+  }
+  push_book(username: string, id: string, name: string): void {
+    let storedData = localStorage.getItem(username);
+    if (storedData) {
+      this.temp = JSON.parse(storedData);
+      this.books = this.temp.favourite;
+      let search = this.books.find((value) => value.id == id);
+      if (!search) {
+        this.books.push(this.dataobj);
+        this.details = {
+          name: name,
+          favourite: this.books,
+        };
+        // console.log((this.details));
+        localStorage.setItem(this.username, JSON.stringify(this.details));
+      }
+    }
+    this.books = [];
   }
 
   getFavorite(username: string) {
-    return localStorage.getItem(this.username);
+    let data = localStorage.getItem(this.username);
+    if (data) {
+      let newdata = JSON.parse(data);
+      // console.log(newdata.favourite);
+      return newdata.favourite;
+    }
   }
 
   deleteFavorite(id: string) {
@@ -75,13 +105,20 @@ export class UserService {
     if (stringdata) {
       this.newdata = JSON.parse(stringdata);
     }
-
-    if (this.newdata) {
-      this.newdata = this.newdata.filter((item: { id: string }) => {
+      let data=this.newdata.favourite;
+    if (data) {
+      data = data.filter((item: { id: string }) => {
         return item.id != id;
       });
     }
-    localStorage.setItem(this.username, JSON.stringify(this.newdata));
-    return this.newdata;
+  
+     this.details = {
+       name: this.name,
+       favourite: data,
+     };
+      //  console.log(this.details);
+
+    localStorage.setItem(this.username, JSON.stringify(this.details));
+    return data;
   }
 }

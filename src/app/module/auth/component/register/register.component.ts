@@ -11,8 +11,8 @@ import { UserService } from '../../../../service/user.service';
 })
 export class RegisterComponent {
   username!: string;
-
-    registerForm = new FormGroup({
+  name!: string;
+  registerForm = new FormGroup({
     username: new FormControl<string>(''),
     firstname: new FormControl<string>(''),
     lastname: new FormControl<string>(''),
@@ -26,42 +26,46 @@ export class RegisterComponent {
   ) {}
 
   onSubmit(): void {
-    //reading the values from the form
-    if (this.registerForm.value.username && this.registerForm.value.password) {
-      //check for a valid username
-      if (
-        this.check(
-          this.registerForm.value.username,
-          this.registerForm.value.password
-        )
-      )//if valid username
-       {
-        this.username =
-          this.registerForm.value.username + this.registerForm.value.password;
-         
-          //if  user is already registered
-           if (
-             !localStorage.getItem(this.username) &&
-             this.registerForm.value.password ==
-               this.registerForm.value.confirmpassword
-           ) {
-             //check if password matches or not and user does not exist privously
-             this.toastr.info('Registeration successful', 'Registered', {
-               timeOut: 2000,
-             });
-             this.user.setUser(this.username);
-             this.route.navigate(['/login']);
-           }
-           else if(localStorage.getItem(this.username) )
-           {
-             this.toastr.error('user already exist', '', {
-               timeOut: 800,
-             });
-           }
-      }
+    if (this.registerForm.value.firstname && this.registerForm.value.lastname)
+    {
+      this.name=this.registerForm.value.firstname+' '+this.registerForm.value.lastname;
     }
-  }
+      if (
+        this.registerForm.value.username &&
+        this.registerForm.value.password
+      ) {
+        //reading the values from the form
+        //check for a valid username
+        if (
+          this.check(
+            this.registerForm.value.username,
+            this.registerForm.value.password
+          )
+        ) {
+          //if valid username
+          this.username =
+            this.registerForm.value.username + this.registerForm.value.password;
 
+          //if  user is already registered
+          if (
+            !localStorage.getItem(this.username) &&
+            this.registerForm.value.password ==
+              this.registerForm.value.confirmpassword
+          ) {
+            //check if password matches or not and user does not exist privously
+            this.toastr.info('Registeration successful', 'Registered', {
+              timeOut: 2000,
+            });
+            this.user.setUser(this.username,this.name);
+            this.route.navigate(['/login']);
+          } else if (localStorage.getItem(this.username)) {
+            this.toastr.error('user already exist', '', {
+              timeOut: 800,
+            });
+          }
+        }
+      }
+  }
 
   //regx for username that is email
   check(username: string, password: string): boolean {

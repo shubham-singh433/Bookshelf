@@ -17,6 +17,7 @@ export class BookListComponent implements OnInit {
   length!: number;
   page: number = 1;
   data!: any;
+  name!: string;
   constructor(
     private http: BookServiceService,
     private user: UserService,
@@ -49,6 +50,7 @@ export class BookListComponent implements OnInit {
           this.length = this.data.length;
         });
   }
+  this.name=this.user.getname();
   }
   handlePageEvent(event: any) {
     this.items = event.pageSize;

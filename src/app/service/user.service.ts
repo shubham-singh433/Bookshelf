@@ -20,6 +20,9 @@ export class UserService {
   getUsername() {
     return this.username;
   }
+  getname(){
+    return this.name;
+  }
 
   //set user in local storage
   setUser(key: string, name: string): void {
